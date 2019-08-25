@@ -21,38 +21,16 @@ import asyncio
 from servra import Server
 
 async def handler(method, path, request_headers, request_body):
+    # Read response body
     async for chunk in request_body:
         print(chunk)
 
-    async def response_body():
-        yield b'a'
-        yield b'bc'
+    # Yield response code and headers
+    yield b'200', ((b'content-length', b'3'),)
 
-    return b'200', ((b'content-length', b'3'),), response_body
-
-async def main():
-    start, stop = Server(('0.0.0.0', 8080), handler)
-
-    # Start listening on specified address, and in the background on each
-    # incoming connection call the handler in a new task
-    await start()
-
-    # Stop listening, finish any incoming requests, close all connections
-    await stop()
-
-loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
-```
-
-However, there are helper functions `streamed` and `buffered` when this isn't required or possible.
-
-```python
-import asyncio
-from servra import Server, buffered, streamed
-
-async def handler(method, path, request_headers, request_body):
-    request_body_bytes = await buffered(request_body)
-    return b'200', ((b'content-length', b'3'),), streamed(b'abc')
+    # Yield remaining bytes
+    yield b'a'
+    yield b'bc'
 
 async def main():
     start, stop = Server(('0.0.0.0', 8080), handler)
@@ -66,7 +44,7 @@ async def main():
 
 loop = asyncio.get_event_loop()
 loop.run_until_complete(main())
-```
+``
 
 
 ## Scope
