@@ -21,10 +21,10 @@ import asyncio
 from servra import Server
 
 async def handler(method, path, request_headers, request_body):
-    for chunk in request_body:
+    async for chunk in request_body:
         print(chunk)
 
-    def response_body():
+    async def response_body():
         yield b'a'
         yield b'bc'
 
