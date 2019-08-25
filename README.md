@@ -21,7 +21,7 @@ import asyncio
 from servra import Server
 
 async def handler(method, path, request_headers, request_body):
-    # Read response body
+    # Read request body
     async for chunk in request_body:
         print(chunk)
 
