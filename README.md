@@ -61,4 +61,5 @@ This is to make the core behaviour useful to a reasonable range of uses, but to 
 - HTTPS: servra would typically be used behind a load balancer or other server that performs TLS termination;
 - path-based routing to different handler functions;
 - returning a 500 on error: exceptions in the handler will simply close the connection;
-- adding any HTTP header, including `content-length` or `transfer-encoding`, although servra will examine incoming and outgoing headers, as well as the HTTP version, and determine if the connection can remain open.
+- adding any HTTP header, including `content-length` or `transfer-encoding`, although servra will examine incoming and outgoing headers, as well as the HTTP version, and determine if the connection can remain open;
+- any WebSockets-related functionality, other than allowing `request_body` to be iterated over beyond the initial request.
