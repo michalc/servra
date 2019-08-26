@@ -56,7 +56,9 @@ The scope of servra is restricted to:
 - passing and receiving HTTP headers and streaming bodies;
 - decoding chunked requests.
 
-This is to make the core behaviour useful to a reasonable range of uses, but to _not_ include what can be added by layer(s) on top or separate infrastructure. Specifically not included:
+This is to make the core behaviour useful to a reasonable range of uses, but to _not_ include what can be added by the handler or separate infrastructure. Specifically not included:
 
-- HTTPS: servra would typically be used behind a load balancer or other server that performs TLS termination.
-- Path-based routing to different handler functions.
+- HTTPS: servra would typically be used behind a load balancer or other server that performs TLS termination;
+- path-based routing to different handler functions;
+- returning a 500 on error: exceptions in the handler will simply close the connection;
+- adding any HTTP header, including `content-length` or `transfer-encoding`, although servra will examine incoming and outgoing headers and determine if the connection can remain open.
