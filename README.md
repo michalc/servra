@@ -1,6 +1,6 @@
 # servra
 
-Lightweight and low-level asyncio Python HTTP server.
+Lightweight and low-level asyncio Python HTTP/1.1 server.
 
 > Work-in-progress. These docs are a rough design spec
 
