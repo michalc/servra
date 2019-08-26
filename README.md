@@ -22,7 +22,7 @@ from servra import Server
 
 async def handler(method, path, request_headers, request_body):
     # Read request body
-    async for chunk in request_body:
+    async for chunk in request_body():
         print(chunk)
 
     # Yield response code and headers
